@@ -95,6 +95,14 @@ function App() {
             setOutOf(outOf + 1)
             const newUsedCountries = [...usedCountries, country]
             setUsedCountries(newUsedCountries)
+            
+            // Check if all countries have been used
+            const totalCountries = Object.keys(dictionary).length
+            if (newUsedCountries.length >= totalCountries) {
+              setGameOver(true)
+              return
+            }
+            
             setCountry(pickCountry(newUsedCountries))
             setAnswer('')
           }}
@@ -112,8 +120,18 @@ function App() {
             onClick={() => {
               const newUsedCountries = [...usedCountries, country]
               setUsedCountries(newUsedCountries)
+              
+              // Check if all countries have been used
+              const totalCountries = Object.keys(dictionary).length
+              if (newUsedCountries.length >= totalCountries) {
+                setGameOver(true)
+                return
+              }
+              
               setCountry(pickCountry(newUsedCountries))
               setAnswer('')
+              setOutOf(outOf + 1)
+              setFeedback(`Skipped! The answer was ${checkForCapital(country)}`)
             }}
             > Skip </button>
           </div>
@@ -127,12 +145,6 @@ function App() {
 function pickCountry(usedCountries: string[]): string {
   const allCountries = Object.keys(dictionary)
   const availableCountries = allCountries.filter(c => !usedCountries.includes(c))
-  
-  // If all countries have been used, reset and use all countries
-  if (availableCountries.length === 0) {
-    const randomIndex = Math.floor(Math.random() * allCountries.length)
-    return allCountries[randomIndex]
-  }
   
   const randomIndex = Math.floor(Math.random() * availableCountries.length)
   return availableCountries[randomIndex]
