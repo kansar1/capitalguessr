@@ -3,17 +3,19 @@ import './App.css'
 import dictionary from './Dictionary'
 
 function App() {
-  const [country, setCountry] = useState(pickCountry())
+  const [usedCountries, setUsedCountries] = useState<string[]>([])
+  const [country, setCountry] = useState(() => pickCountry([]))
   const [answer, setAnswer] = useState('')
   const [feedback, setFeedback] = useState('')
   const [score, setScore] = useState(0)
   const [outOf, setOutOf] = useState(0)
   const [timer, setTimer] = useState(60)
   const [gameOver, setGameOver] = useState(false)
+  const [gameStarted, setGameStarted] = useState(false)
 
   
   useEffect(() => {
-    if (gameOver) return
+    if (!gameStarted || gameOver) return
     
     const countdown = setInterval(() => {
       setTimer((prevTimer) => {
@@ -27,16 +29,32 @@ function App() {
     }, 1000)
     
     return () => clearInterval(countdown)
-  }, [gameOver])
+  }, [gameStarted, gameOver])
 
   const restartGame = () => {
     setTimer(60)
     setGameOver(false)
+    setGameStarted(false)
     setScore(0)
     setOutOf(0)
-    setCountry(pickCountry())
+    setUsedCountries([])
+    setCountry(pickCountry([]))
     setAnswer('')
     setFeedback('')
+  }
+
+  if (!gameStarted) {
+    return (
+      <div className="App">
+        <div className="Centered Main">
+          <h1> CapitalGuessr </h1>
+          <h2> Welcome! </h2>
+          <p> Test your knowledge of world capitals </p>
+          <p> You have <strong>{timer}</strong> seconds to answer as many as you can </p>
+          <button onClick={() => setGameStarted(true)}> Start Game </button>
+        </div>
+      </div>
+    )
   }
 
   if (gameOver) {
@@ -75,6 +93,10 @@ function App() {
               setFeedback(`Incorrect! The answer is ${displayAnswer}`)
             }
             setOutOf(outOf + 1)
+            const newUsedCountries = [...usedCountries, country]
+            setUsedCountries(newUsedCountries)
+            setCountry(pickCountry(newUsedCountries))
+            setAnswer('')
           }}
         >
           <label> Type your answer here: </label>
@@ -88,10 +110,12 @@ function App() {
           <div>          
             <button type="button" 
             onClick={() => {
-              setCountry(pickCountry())
+              const newUsedCountries = [...usedCountries, country]
+              setUsedCountries(newUsedCountries)
+              setCountry(pickCountry(newUsedCountries))
               setAnswer('')
             }}
-            > Next Country </button>
+            > Skip </button>
           </div>
         </form>
         {feedback && <p>{feedback}</p>}
@@ -100,10 +124,18 @@ function App() {
   )
 }
 
-function pickCountry(): string {
-  const country = Object.keys(dictionary)
-  const randomIndex = Math.floor(Math.random() * country.length)
-  return country[randomIndex]
+function pickCountry(usedCountries: string[]): string {
+  const allCountries = Object.keys(dictionary)
+  const availableCountries = allCountries.filter(c => !usedCountries.includes(c))
+  
+  // If all countries have been used, reset and use all countries
+  if (availableCountries.length === 0) {
+    const randomIndex = Math.floor(Math.random() * allCountries.length)
+    return allCountries[randomIndex]
+  }
+  
+  const randomIndex = Math.floor(Math.random() * availableCountries.length)
+  return availableCountries[randomIndex]
 }
 
 function checkForCapital(country: string): string | string[] | undefined {
