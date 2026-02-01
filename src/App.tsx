@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import dictionary from './Dictionary'
 
@@ -8,18 +8,63 @@ function App() {
   const [feedback, setFeedback] = useState('')
   const [score, setScore] = useState(0)
   const [outOf, setOutOf] = useState(0)
+  const [timer, setTimer] = useState(60)
+  const [gameOver, setGameOver] = useState(false)
+
+  
+  useEffect(() => {
+    if (gameOver) return
+    
+    const countdown = setInterval(() => {
+      setTimer((prevTimer) => {
+        if (prevTimer <= 1) {
+          clearInterval(countdown)
+          setGameOver(true)
+          return 0
+        }
+        return prevTimer - 1
+      })
+    }, 1000)
+    
+    return () => clearInterval(countdown)
+  }, [gameOver])
+
+  const restartGame = () => {
+    setTimer(60)
+    setGameOver(false)
+    setScore(0)
+    setOutOf(0)
+    setCountry(pickCountry())
+    setAnswer('')
+    setFeedback('')
+  }
+
+  if (gameOver) {
+    return (
+      <div className="App">
+        <div className="Centered Main">
+          <h1> Game Over! </h1>
+          <h2> Final Score: {score} / {outOf} </h2>
+          <h3> Accuracy: {outOf > 0 ? Math.round((score / outOf) * 100) : 0}% </h3>
+          <button onClick={restartGame}> Play Again </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="App">
       <div className="Centered Main">
         <h1> CapitalGuessr </h1>
         <h4> Guess the capital correctly </h4>
+        <h2> Time Remaining: {timer} seconds </h2>
         <h3> Score: {score} / {outOf} </h3>
         <hr/>
         <h3> What is the capital of {country}? </h3>
         <form
           onSubmit={(event) => {
             event.preventDefault()
+            if (gameOver) return
             const correctCapital = checkForCapital(country)
             const isCorrect = isAnswerCorrect(answer, correctCapital)
             if (isCorrect) {
@@ -32,10 +77,10 @@ function App() {
             setOutOf(outOf + 1)
           }}
         >
-          <label> Put answer here </label>
+          <label> Type your answer here: </label>
           <input
           type="text"
-          placeholder="Type answer here"
+          placeholder="Type your answer here..."
           value={answer}
           onChange={(event) => setAnswer(event.target.value)}
           />
@@ -50,9 +95,7 @@ function App() {
           </div>
         </form>
         {feedback && <p>{feedback}</p>}
-      </div>
-      
-      
+      </div>  
     </div>
   )
 }
