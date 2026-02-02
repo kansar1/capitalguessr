@@ -9,7 +9,7 @@ function App() {
   const [feedback, setFeedback] = useState('')
   const [score, setScore] = useState(0)
   const [outOf, setOutOf] = useState(0)
-  const [timer, setTimer] = useState(60)
+  const [timer, setTimer] = useState(30)
   const [gameOver, setGameOver] = useState(false)
   const [gameStarted, setGameStarted] = useState(false)
 
