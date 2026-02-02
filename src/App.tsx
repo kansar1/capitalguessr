@@ -46,12 +46,13 @@ function App() {
   if (!gameStarted) {
     return (
       <div className="App">
-        <div className="Centered Main">
+        <div className="Centered-Main">
           <h1> CapitalGuessr </h1>
           <h2> Welcome! </h2>
           <p> Test your knowledge of world capitals </p>
           <p> You have <strong>{timer}</strong> seconds to answer as many as you can </p>
-          <button onClick={() => setGameStarted(true)}> Start Game </button>
+          <button onClick={() => setGameStarted(true)} className="Submit-Button"> Start Game </button>
+          <p> Made by <a href="https://github.com/kansar1/capitalguessr" target="_blank" rel="noopener noreferrer">kansar1</a> on Github </p>  
         </div>
       </div>
     )
@@ -60,11 +61,14 @@ function App() {
   if (gameOver) {
     return (
       <div className="App">
-        <div className="Centered Main">
-          <h1> Game Over! </h1>
-          <h2> Final Score: {score} / {outOf} </h2>
-          <h3> Accuracy: {outOf > 0 ? Math.round((score / outOf) * 100) : 0}% </h3>
-          <button onClick={restartGame}> Play Again </button>
+        <header className="GameHeader">
+          <h1> CapitalGuessr </h1>
+        </header>
+        <div className="Centered-Main">
+          <h2> Game Over! </h2>
+          <h3> Final Score: {score} / {outOf} </h3>
+          <h4> Accuracy: {outOf > 0 ? Math.round((score / outOf) * 100) : 0}% </h4>
+          <button onClick={restartGame} className='Submit-Button'> Play Again </button>
         </div>
       </div>
     )
@@ -72,8 +76,10 @@ function App() {
 
   return (
     <div className="App">
-      <div className="Centered Main">
+      <header className="GameHeader">
         <h1> CapitalGuessr </h1>
+      </header>
+      <div className="Centered-Main">
         <h4> Guess the capital correctly </h4>
         <h2> Time Remaining: {timer} seconds </h2>
         <h3> Score: {score} / {outOf} </h3>
@@ -114,9 +120,10 @@ function App() {
           value={answer}
           onChange={(event) => setAnswer(event.target.value)}
           />
-          <button type="submit"> Submit </button>
-          <div>          
+          <div className="Button">
+            <button type="submit" className='Submit-Button'> Submit </button>    
             <button type="button" 
+            className='Skip-Button'
             onClick={() => {
               const newUsedCountries = [...usedCountries, country]
               setUsedCountries(newUsedCountries)
@@ -137,7 +144,7 @@ function App() {
           </div>
         </form>
         {feedback && <p>{feedback}</p>}
-      </div>  
+      </div>
     </div>
   )
 }
