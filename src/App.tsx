@@ -32,7 +32,7 @@ function App() {
   }, [gameStarted, gameOver])
 
   const restartGame = () => {
-    setTimer(60)
+    setTimer(30)
     setGameOver(false)
     setGameStarted(false)
     setScore(0)
