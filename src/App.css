@@ -201,3 +201,107 @@ label {
     padding: 2rem;
     padding-top: 120px;
 }
+
+.Difficulty-Selection {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.Difficulty-Button {
+    padding: 1.5em 2em;
+    border-radius: 10px;
+    border: 2px solid rgba(144, 238, 144, 0.6);
+    background: rgba(76, 175, 80, 0.15);
+    color: #e8f5e9;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3), 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    letter-spacing: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 120px;
+}
+
+.Difficulty-Button:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 25px rgba(144, 238, 144, 0.5), 0 6px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3px);
+    background: rgba(76, 175, 80, 0.3);
+}
+
+.Difficulty-Button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba(144, 238, 144, 0.3), 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.Difficulty-Button.Easy {
+    border-color: rgba(144, 238, 144, 0.7);
+    background: rgba(56, 142, 60, 0.2);
+}
+
+.Difficulty-Button.Easy:hover {
+    background: rgba(56, 142, 60, 0.35);
+    border-color: rgba(144, 238, 144, 0.9);
+    box-shadow: 0 0 25px rgba(144, 238, 144, 0.5), 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.Difficulty-Button.Medium {
+    border-color: rgba(255, 193, 7, 0.7);
+    background: rgba(230, 124, 115, 0.2);
+}
+
+.Difficulty-Button.Medium:hover {
+    background: rgba(230, 124, 115, 0.35);
+    border-color: rgba(255, 193, 7, 0.9);
+    box-shadow: 0 0 25px rgba(255, 193, 7, 0.5), 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.Difficulty-Button.Hard {
+    border-color: rgba(238, 144, 144, 0.7);
+    background: rgba(176, 64, 64, 0.2);
+}
+
+.Difficulty-Button.Hard:hover {
+    background: rgba(176, 64, 64, 0.35);
+    border-color: rgba(238, 144, 144, 0.9);
+    box-shadow: 0 0 25px rgba(238, 144, 144, 0.5), 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.Difficulty-Info {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.Difficulty-Label {
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.Difficulty-Label.easy {
+    background: rgba(76, 175, 80, 0.3);
+    color: #90ee90;
+}
+
+.Difficulty-Label.medium {
+    background: rgba(255, 193, 7, 0.3);
+    color: #ffd54f;
+}
+
+.Difficulty-Label.hard {
+    background: rgba(238, 144, 144, 0.3);
+    color: #ffb3b3;
+}

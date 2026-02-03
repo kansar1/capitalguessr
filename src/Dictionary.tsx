@@ -1,6 +1,7 @@
 type Capitals = {
     [country: string]: string | string[];
 };
+
 const dictionary: Capitals = {
     "Afghanistan": "KABUL",
     "Albania": "TIRANA",
@@ -205,7 +206,7 @@ const dictionary: Capitals = {
     "Ukraine": "KYIV",
     "United Arab Emirates": "ABU DHABI",
     "United Kingdom": "LONDON",
-    "United States": "WASHINGTON, D.C.",
+    "United States": "WASHINGTON D.C",
     "Uruguay": "MONTEVIDEO",
     "Uzbekistan": "TASHKENT",
 
@@ -218,6 +219,56 @@ const dictionary: Capitals = {
 
     "Zambia": "LUSAKA",
     "Zimbabwe": "HARARE"
+};
+
+// Easy difficulty: well-known countries
+const easyCountries = [
+    "United States", "United Kingdom", "France", "Germany", "Italy", "Spain", "Canada",
+    "Japan", "China", "India", "Brazil", "Mexico", "Russia", "Australia", "Egypt",
+    "South Africa", "Indonesia", "Thailand", "Greece", "Netherlands", "Sweden", "Norway",
+    "Poland", "Ireland", "New Zealand", "Singapore", "Turkey", "South Korea", "Vietnam",
+    "Chile", "Argentina"
+];
+
+// Medium difficulty: moderately well-known countries
+const mediumCountries = [
+    "Afghanistan", "Albania", "Algeria", "Angola", "Armenia", "Austria", "Azerbaijan",
+    "Bahamas", "Bahrain", "Bangladesh", "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
+    "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brunei", "Bulgaria", "Cambodia",
+    "Cameroon", "Colombia", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czhechia/Czech Republic",
+    "Denmark", "Dominican Republic", "Ecuador", "El Salvador", "Estonia", "Ethiopia", "Finland",
+    "Gabon", "Georgia", "Ghana", "Guatemala", "Guinea", "Guyana", "Haiti", "Honduras",
+    "Hungary", "Iceland", "Iran", "Iraq", "Israel", "Jamaica", "Jordan", "Kazakhstan", "Kenya",
+    "Kuwait", "Latvia", "Lebanon", "Liberia", "Libya", "Lithuania", "Luxembourg", "Madagascar",
+    "Malawi", "Malaysia", "Mali", "Malta", "Mauritius", "Morocco", "Nepal", "Nicaragua",
+    "Nigeria", "North Korea", "Pakistan", "Panama", "Paraguay", "Peru", "Philippines",
+    "Portugal", "Qatar", "Romania", "Rwanda", "Saudi Arabia", "Serbia", "Slovenia", "Sri Lanka",
+    "Sudan", "Switzerland", "Syria", "Taiwan", "Tanzania", "Tunisia", "Ukraine",
+    "United Arab Emirates", "Uruguay", "Venezuela", "Zambia", "Zimbabwe"
+];
+
+// Hard difficulty: obscure countries
+const hardCountries = [
+    "Andorra", "Antigua and Barbuda", "Burkina Faso", "Burundi", "Cape Verde",
+    "Central African Republic", "Chad", "Comoros", "Congo (Republic of the)",
+    "Djibouti", "Dominica", "Equatorial Guinea", "Eritrea", "Eswatini/Swaziland",
+    "Fiji", "Gambia", "Grenada", "Guinea-Bissau", "Kiribati", "Kyrgyzstan", "Laos",
+    "Lesotho", "Liechtenstein", "Marshall Islands", "Mauritania", "Micronesia",
+    "Moldova", "Monaco", "Mongolia", "Montenegro", "Mozambique", "Myanmar/Burma",
+    "Namibia", "Nauru", "North Macedonia", "Oman", "Palau", "Papua New Guinea",
+    "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
+    "Samoa", "San Marino", "Sao Tome and Principe", "Senegal", "Seychelles",
+    "Sierra Leone", "Slovakia", "Solomon Islands", "Somalia", "South Sudan",
+    "Tajikistan", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Turkmenistan",
+    "Tuvalu", "Vanuatu", "Vatican City", "Yemen"
+];
+
+export type DifficultyLevel = 'easy' | 'medium' | 'hard';
+
+export const difficultyCountries: Record<DifficultyLevel, string[]> = {
+    easy: easyCountries,
+    medium: mediumCountries,
+    hard: hardCountries
 };
 
 export default dictionary;

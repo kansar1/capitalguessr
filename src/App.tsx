@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import dictionary from './Dictionary'
+import { difficultyCountries, type DifficultyLevel } from './Dictionary'
+
+type Difficulty = DifficultyLevel
+
+const TIMER_DURATION = 30
 
 function App() {
   const [usedCountries, setUsedCountries] = useState<string[]>([])
-  const [country, setCountry] = useState(() => pickCountry([]))
+  const [country, setCountry] = useState<string>('')
   const [answer, setAnswer] = useState('')
   const [feedback, setFeedback] = useState('')
   const [score, setScore] = useState(0)
   const [outOf, setOutOf] = useState(0)
-  const [timer, setTimer] = useState(30)
+  const [timer, setTimer] = useState(TIMER_DURATION)
   const [gameOver, setGameOver] = useState(false)
   const [gameStarted, setGameStarted] = useState(false)
+  const [difficulty, setDifficulty] = useState<Difficulty | null>(null)
 
   
   useEffect(() => {
@@ -32,15 +38,24 @@ function App() {
   }, [gameStarted, gameOver])
 
   const restartGame = () => {
-    setTimer(30)
+    setTimer(TIMER_DURATION)
     setGameOver(false)
     setGameStarted(false)
+    setDifficulty(null)
     setScore(0)
     setOutOf(0)
     setUsedCountries([])
-    setCountry(pickCountry([]))
+    setCountry('')
     setAnswer('')
     setFeedback('')
+  }
+
+  const startGame = (selectedDifficulty: Difficulty) => {
+    setDifficulty(selectedDifficulty)
+    setTimer(TIMER_DURATION)
+    const newCountry = pickCountry([], selectedDifficulty)
+    setCountry(newCountry)
+    setGameStarted(true)
   }
 
   if (!gameStarted) {
@@ -50,8 +65,21 @@ function App() {
           <h1> CapitalGuessr </h1>
           <h2> Welcome! </h2>
           <p> Test your knowledge of world capitals </p>
-          <p> You have <strong>{timer}</strong> seconds to answer as many as you can </p>
-          <button onClick={() => setGameStarted(true)} className="Submit-Button"> Start Game </button>
+          <p> Select a difficulty level: </p>
+          <div className="Difficulty-Selection">
+            <button onClick={() => startGame('easy')} className="Difficulty-Button Easy"> 
+              Easy 
+              <p className="Difficulty-Info">(Well-known countries)</p>
+            </button>
+            <button onClick={() => startGame('medium')} className="Difficulty-Button Medium"> 
+              Medium 
+              <p className="Difficulty-Info">(Mixed difficulty)</p>
+            </button>
+            <button onClick={() => startGame('hard')} className="Difficulty-Button Hard"> 
+              Hard 
+              <p className="Difficulty-Info">(Obscure countries)</p>
+            </button>
+          </div>
           <p> Made by <a href="https://github.com/kansar1/capitalguessr" target="_blank" rel="noopener noreferrer">kansar1</a> on Github </p>  
         </div>
       </div>
@@ -83,6 +111,7 @@ function App() {
         <h4> Guess the capital correctly </h4>
         <h2> Time Remaining: {timer} seconds </h2>
         <h3> Score: {score} / {outOf} </h3>
+        <h4> Difficulty: <span className={`Difficulty-Label ${difficulty}`}>{difficulty?.toUpperCase()}</span> </h4>
         <hr/>
         <h3> What is the capital of {country}? </h3>
         <form
@@ -102,14 +131,14 @@ function App() {
             const newUsedCountries = [...usedCountries, country]
             setUsedCountries(newUsedCountries)
             
-            // Check if all countries have been used
-            const totalCountries = Object.keys(dictionary).length
-            if (newUsedCountries.length >= totalCountries) {
+            // Check if all countries have been used for this difficulty
+            const availableCountries = difficultyCountries[difficulty!]
+            if (newUsedCountries.length >= availableCountries.length) {
               setGameOver(true)
               return
             }
             
-            setCountry(pickCountry(newUsedCountries))
+            setCountry(pickCountry(newUsedCountries, difficulty!))
             setAnswer('')
           }}
         >
@@ -128,14 +157,14 @@ function App() {
               const newUsedCountries = [...usedCountries, country]
               setUsedCountries(newUsedCountries)
               
-              // Check if all countries have been used
-              const totalCountries = Object.keys(dictionary).length
-              if (newUsedCountries.length >= totalCountries) {
+              // Check if all countries have been used for this difficulty
+              const availableCountries = difficultyCountries[difficulty!]
+              if (newUsedCountries.length >= availableCountries.length) {
                 setGameOver(true)
                 return
               }
               
-              setCountry(pickCountry(newUsedCountries))
+              setCountry(pickCountry(newUsedCountries, difficulty!))
               setAnswer('')
               setOutOf(outOf + 1)
               setFeedback(`Skipped! The answer was ${checkForCapital(country)}`)
@@ -149,12 +178,12 @@ function App() {
   )
 }
 
-function pickCountry(usedCountries: string[]): string {
-  const allCountries = Object.keys(dictionary)
-  const availableCountries = allCountries.filter(c => !usedCountries.includes(c))
+function pickCountry(usedCountries: string[], difficulty: Difficulty): string {
+  const availableCountries = difficultyCountries[difficulty]
+  const filteredCountries = availableCountries.filter(c => !usedCountries.includes(c))
   
-  const randomIndex = Math.floor(Math.random() * availableCountries.length)
-  return availableCountries[randomIndex]
+  const randomIndex = Math.floor(Math.random() * filteredCountries.length)
+  return filteredCountries[randomIndex]
 }
 
 function checkForCapital(country: string): string | string[] | undefined {
