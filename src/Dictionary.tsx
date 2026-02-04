@@ -232,28 +232,28 @@ const easyCountries = [
 
 // Medium difficulty: moderately well-known countries
 const mediumCountries = [
-    "Afghanistan", "Albania", "Algeria", "Angola", "Armenia", "Austria", "Azerbaijan",
-    "Bahamas", "Bahrain", "Bangladesh", "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
+    "Afghanistan", "Albania", "Algeria", "Armenia", "Austria", "Azerbaijan",
+    "Bahamas", "Bahrain", "Bangladesh", "Belarus", "Belgium", "Belize", "Benin",
     "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brunei", "Bulgaria", "Cambodia",
     "Cameroon", "Colombia", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czhechia/Czech Republic",
     "Denmark", "Dominican Republic", "Ecuador", "El Salvador", "Estonia", "Ethiopia", "Finland",
     "Gabon", "Georgia", "Ghana", "Guatemala", "Guinea", "Guyana", "Haiti", "Honduras",
     "Hungary", "Iceland", "Iran", "Iraq", "Israel", "Jamaica", "Jordan", "Kazakhstan", "Kenya",
-    "Kuwait", "Latvia", "Lebanon", "Liberia", "Libya", "Lithuania", "Luxembourg", "Madagascar",
-    "Malawi", "Malaysia", "Mali", "Malta", "Mauritius", "Morocco", "Nepal", "Nicaragua",
+    "Kuwait", "Latvia", "Lebanon", "Lithuania", "Luxembourg",
+    "Malaysia", "Malta", "Mauritius", "Morocco", "Nepal", "Nicaragua",
     "Nigeria", "North Korea", "Pakistan", "Panama", "Paraguay", "Peru", "Philippines",
-    "Portugal", "Qatar", "Romania", "Rwanda", "Saudi Arabia", "Serbia", "Slovenia", "Sri Lanka",
-    "Sudan", "Switzerland", "Syria", "Taiwan", "Tanzania", "Tunisia", "Ukraine",
+    "Portugal", "Qatar", "Romania", "Saudi Arabia", "Serbia", "Slovenia", "Sri Lanka",
+    "Switzerland", "Syria", "Taiwan", "Tanzania", "Tunisia", "Ukraine",
     "United Arab Emirates", "Uruguay", "Venezuela", "Zambia", "Zimbabwe"
 ];
 
 // Hard difficulty: obscure countries
 const hardCountries = [
-    "Andorra", "Antigua and Barbuda", "Burkina Faso", "Burundi", "Cape Verde",
+    "Andorra", "Angola", "Antigua and Barbuda", "Bhutan", "Burkina Faso", "Burundi", "Cape Verde",
     "Central African Republic", "Chad", "Comoros", "Congo (Republic of the)",
     "Djibouti", "Dominica", "Equatorial Guinea", "Eritrea", "Eswatini/Swaziland",
     "Fiji", "Gambia", "Grenada", "Guinea-Bissau", "Kiribati", "Kyrgyzstan", "Laos",
-    "Lesotho", "Liechtenstein", "Marshall Islands", "Mauritania", "Micronesia",
+    "Lesotho", "Liechtenstein", "Liberia", "Libya", "Madagascar", "Marshall Islands", "Mauritania", "Micronesia",
     "Moldova", "Monaco", "Mongolia", "Montenegro", "Mozambique", "Myanmar/Burma",
     "Namibia", "Nauru", "North Macedonia", "Oman", "Palau", "Papua New Guinea",
     "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
